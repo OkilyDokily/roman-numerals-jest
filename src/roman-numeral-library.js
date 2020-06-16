@@ -1,11 +1,11 @@
 
-function findAppropriateMultiple(value,decimal){ 
+export function findAppropriateMultiple(value,decimal){ 
   for(var i = 1; i <= 4;i++) {
     if (value * i > decimal) return i - 1;
   }
 }
 
-function appendMultiples(romanNumeralToMultiply,timesToMultipleRomanNumeral){
+export function appendMultiples(romanNumeralToMultiply,timesToMultipleRomanNumeral){
   if(timesToMultipleRomanNumeral === 0) return "";
   return romanNumeralToMultiply + appendMultiples(romanNumeralToMultiply,timesToMultipleRomanNumeral-1);
 }
