@@ -1,13 +1,20 @@
-import {findAppropriateMultiple, appendMultiples, decimalToRomanNumeral} from '../src/roman-numeral-library.js'
+import {findAppropriateMultiple, appendMultiples, decimalToRomanNumeral, findFirstRomanNumeralValueThatExceedsTheValueOfDecimal} from '../src/roman-numeral-library.js'
 
 describe("findAppropriateMultiple",()=>{
- 
+
 
 
 });
 
 describe("appendMultiples",()=>{
 
+});
+
+describe("findFirstRomanNumeralValueThatExceedsTheValueOfDecimal",()=>{
+  test("find largest numeral that is greater than value",()=>{
+    const largest = findFirstRomanNumeralValueThatExceedsTheValueOfDecimal(49);
+    expect(largest).toEqual("L");
+  });
 });
 
 describe("decimalToRomanNumeral",()=>{

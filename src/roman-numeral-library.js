@@ -1,7 +1,10 @@
 
-export function findAppropriateMultiple(value,decimal){ 
+let equivalentsMap = new Map([[1,"I"],[5,"V"],[10,"X"],[50,"L"],[100,"C"],[500,"D"],[1000,"M"],[5000,"E"]]);
+let equivalentsMapKeys = [...equivalentsMap.keys()];
+
+export function findAppropriateMultiple(romanNumeralValue,decimal){ 
   for(var i = 1; i <= 4;i++) {
-    if (value * i > decimal) return i - 1;
+    if (romanNumeralValue * i > decimal) return i - 1;
   }
 }
 
@@ -10,22 +13,30 @@ export function appendMultiples(romanNumeralToMultiply,timesToMultipleRomanNumer
   return romanNumeralToMultiply + appendMultiples(romanNumeralToMultiply,timesToMultipleRomanNumeral-1);
 }
 
+export function findFirstRomanNumeralValueThatExceedsTheValueOfDecimal(decimal){
+  for (let i = 0; i < equivalentsMapKeys.length; i++){
+    if((equivalentsMapKeys[i]) > decimal) {
+      return equivalentsMap.get(equivalentsMapKeys[i]);
+    }
+  }
+}
+
 export function decimalToRomanNumeral(decimal){
   if (decimal === 0) return "";
   if(decimal >3999) return "thats too high";
 
-  var equivalentsMap = new Map([[1,"I"],[5,"V"],[10,"X"],[50,"L"],[100,"C"],[500,"D"],[1000,"M"],[5000,"E"]]);
-  var equivalentsMapKeys = [...equivalentsMap.keys()];
-  var goesDownTwoWhenSubtracted = ["X","C","M"];
   
-  var timesToMultipleRomanNumeral = 1;
-  var romanNumeralToMultiply;
-  var decimalOfRomanNumeralToMultiply;
-  var totalDecimalOfMultiplies;
+ 
+  let goesDownTwoWhenSubtracted = ["X","C","M"];
+  
+  let timesToMultipleRomanNumeral = 1;
+  let romanNumeralToMultiply;
+  let decimalOfRomanNumeralToMultiply;
+  let totalDecimalOfMultiplies;
 
-  var totalSubtractionDecimal;
-  var firstSubtractionRomanNumeral;
-  var secondSubtractionRomanNumeral;
+  let totalSubtractionDecimal;
+  let firstSubtractionRomanNumeral;
+  let secondSubtractionRomanNumeral;
   for(var i = 0; i < equivalentsMapKeys.length; i++){
     //find first roman numeral which exceeds the value of the decimal 
     if((equivalentsMapKeys[i] > decimal)){
