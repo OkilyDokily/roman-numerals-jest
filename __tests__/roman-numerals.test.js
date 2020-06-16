@@ -2,6 +2,8 @@ import {findAppropriateMultiple, appendMultiples, decimalToRomanNumeral} from '.
 
 describe("findAppropriateMultiple",()=>{
  
+
+
 });
 
 describe("appendMultiples",()=>{
@@ -13,6 +15,13 @@ describe("decimalToRomanNumeral",()=>{
     const equivalent = decimalToRomanNumeral(5);
   
     expect(equivalent).toEqual("V");
+   
+  });
+
+  test('Implement multiples -return simple equivalents such XX, C, MMM', () => {
+    const equivalents = decimalToRomanNumeral(20);
+  
+    expect(equivalents).toEqual("XX");
    
   });
 });
