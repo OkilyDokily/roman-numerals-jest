@@ -1,6 +1,7 @@
 
 let equivalentsMap = new Map([[1,"I"],[5,"V"],[10,"X"],[50,"L"],[100,"C"],[500,"D"],[1000,"M"],[5000,"E"]]);
 let equivalentsMapKeys = [...equivalentsMap.keys()];
+let goesDownTwoWhenSubtracted = ["X","C","M"];
 
 export function findAppropriateMultiple(romanNumeralValue,decimal){ 
   for(let i = 1; i <= 4;i++) {
@@ -16,7 +17,6 @@ export function appendMultiples(romanNumeralToMultiply,timesToMultipleRomanNumer
 export function findIndexOfValueThatExceedsTheValueOfDecimal(decimal){
   for (let i = 0; i < equivalentsMapKeys.length; i++){
     if((equivalentsMapKeys[i]) > decimal) {
-      console.log(i)
       return i;
     }
   }
@@ -32,6 +32,19 @@ export function findFirstRomanNumeralValueThatPrecedesOrEqualsTheValueOfDecimal(
   return equivalentsMap.get(equivalentsMapKeys[i - 1]);
 }
 
+export function prependLowerRomanNumeralToHigherRomanNumeralInCaseOfSubtraction(decimal){
+  let index = findIndexOfValueThatExceedsTheValueOfDecimal(decimal);
+  let firstSubtractionRomanNumeral = findFirstRomanNumeralValueThatExceedsTheValueOfDecimal(decimal);
+  let secondSubtractionRomanNumeral;
+  if (goesDownTwoWhenSubtracted.includes(firstSubtractionRomanNumeral)){//some roman numerals require you go down two values in the equivalentsMapKeys when subtracting
+    secondSubtractionRomanNumeral = equivalentsMap.get(equivalentsMapKeys[index-2]);
+  }
+  else{//otherwise only go down by one Roman Numeral value
+    secondSubtractionRomanNumeral = equivalentsMap.get(equivalentsMapKeys[index-1]);
+  }
+  return secondSubtractionRomanNumeral + firstSubtractionRomanNumeral;
+}
+
 //referred to as decimal rather than inputted number because
 //this is a recursive function.
 export function decimalToRomanNumeral(decimal){
@@ -40,7 +53,7 @@ export function decimalToRomanNumeral(decimal){
 
   let index = findIndexOfValueThatExceedsTheValueOfDecimal(decimal);
  
-  let goesDownTwoWhenSubtracted = ["X","C","M"];
+  
   
   let timesToMultipleRomanNumeral = 1;
   let romanNumeralToMultiply;
