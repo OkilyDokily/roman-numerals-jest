@@ -75,11 +75,10 @@ export function decimalToRomanNumeral(decimal){
   }
   //final step where we append either multiples of roman numerals or subtraction roman numeral pairs and then reiterate the function
   if(totalSubtractionDecimal > decimal){// if this is case then we need to append multiple roman numerals rather than use subtractive roman numerals
-    let romanNumeralToMultiply = findFirstRomanNumeralValueThatPrecedesOrEqualsTheValueOfDecimal(decimal);
     let decimalOfRomanNumeralToMultiply = equivalentsMapKeys[index-1];
     let timesToMultipleRomanNumeral = findAppropriateMultiple(decimalOfRomanNumeralToMultiply,decimal);
     let totalDecimalOfMultiplies = timesToMultipleRomanNumeral * decimalOfRomanNumeralToMultiply;
-    return appendMultiples(romanNumeralToMultiply,timesToMultipleRomanNumeral) + decimalToRomanNumeral(decimal - totalDecimalOfMultiplies);
+    return findLargestMultipleThatIsLessThanValue(decimal) + decimalToRomanNumeral(decimal - totalDecimalOfMultiplies);
   }
   else{
     //append lower value to higher value and then reiterate the function;
