@@ -1,4 +1,4 @@
-import {findAppropriateMultiple, appendMultiples, decimalToRomanNumeral, findFirstRomanNumeralValueThatExceedsTheValueOfDecimal, findFirstRomanNumeralValueThatPrecedesOrEqualsTheValueOfDecimal,prependLowerRomanNumeralToHigherRomanNumeralInCaseOfSubtraction} from '../src/roman-numeral-library.js'
+import {findAppropriateMultiple, appendMultiples, decimalToRomanNumeral, findFirstRomanNumeralValueThatExceedsTheValueOfDecimal, findFirstRomanNumeralValueThatPrecedesOrEqualsTheValueOfDecimal,prependLowerRomanNumeralToHigherRomanNumeralInCaseOfSubtraction, findLargestMultipleThatIsLessThanValue} from '../src/roman-numeral-library.js'
 
 describe("findAppropriateMultiple",()=>{
 
@@ -8,6 +8,13 @@ describe("findAppropriateMultiple",()=>{
 
 describe("appendMultiples",()=>{
 
+});
+
+describe("findLargestMultipleThatIsLessThanValue",()=>{
+  test("find largest multiple that is less than value",()=>{
+    const multiple = findLargestMultipleThatIsLessThanValue(37);
+    expect(multiple).toEqual("XXX");
+  });
 });
 
 describe("prependLowerRomanNumeralToHigherRomanNumeralInCaseOfSubtraction",()=>{

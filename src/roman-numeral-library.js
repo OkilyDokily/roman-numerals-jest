@@ -45,6 +45,15 @@ export function prependLowerRomanNumeralToHigherRomanNumeralInCaseOfSubtraction(
   return secondSubtractionRomanNumeral + firstSubtractionRomanNumeral;
 }
 
+export function findLargestMultipleThatIsLessThanValue(decimal){
+  let index = findIndexOfValueThatExceedsTheValueOfDecimal(decimal);
+  let romanNumeralToMultiply = findFirstRomanNumeralValueThatPrecedesOrEqualsTheValueOfDecimal(decimal);
+  let decimalOfRomanNumeralToMultiply = equivalentsMapKeys[index-1];
+  let timesToMultipleRomanNumeral = findAppropriateMultiple(decimalOfRomanNumeralToMultiply,decimal);
+  
+  return appendMultiples(romanNumeralToMultiply,timesToMultipleRomanNumeral)
+}
+
 //referred to as decimal rather than inputted number because
 //this is a recursive function.
 export function decimalToRomanNumeral(decimal){
@@ -53,32 +62,23 @@ export function decimalToRomanNumeral(decimal){
 
   let index = findIndexOfValueThatExceedsTheValueOfDecimal(decimal);
  
-  
-  
-  let timesToMultipleRomanNumeral = 1;
-  let romanNumeralToMultiply;
-  let decimalOfRomanNumeralToMultiply;
-  let totalDecimalOfMultiplies;
-
   let totalSubtractionDecimal;
 
-  
   let firstSubtractionRomanNumeral = findFirstRomanNumeralValueThatExceedsTheValueOfDecimal(decimal);
-  let secondSubtractionRomanNumeral;
 
 
   if (goesDownTwoWhenSubtracted.includes(firstSubtractionRomanNumeral)){//some roman numerals require you go down two values in the equivalentsMapKeys when subtracting
     totalSubtractionDecimal = equivalentsMapKeys[index] - equivalentsMapKeys[index-2];
   }
-  else{
+  else{ //otherwise just go down one value when subtracting
     totalSubtractionDecimal = equivalentsMapKeys[index] - equivalentsMapKeys[index-1]; 
   }
   //final step where we append either multiples of roman numerals or subtraction roman numeral pairs and then reiterate the function
   if(totalSubtractionDecimal > decimal){// if this is case then we need to append multiple roman numerals rather than use subtractive roman numerals
-    romanNumeralToMultiply = findFirstRomanNumeralValueThatPrecedesOrEqualsTheValueOfDecimal(decimal);
-    decimalOfRomanNumeralToMultiply = equivalentsMapKeys[index-1];
-    timesToMultipleRomanNumeral = findAppropriateMultiple(decimalOfRomanNumeralToMultiply,decimal);
-    totalDecimalOfMultiplies = timesToMultipleRomanNumeral * decimalOfRomanNumeralToMultiply;
+    let romanNumeralToMultiply = findFirstRomanNumeralValueThatPrecedesOrEqualsTheValueOfDecimal(decimal);
+    let decimalOfRomanNumeralToMultiply = equivalentsMapKeys[index-1];
+    let timesToMultipleRomanNumeral = findAppropriateMultiple(decimalOfRomanNumeralToMultiply,decimal);
+    let totalDecimalOfMultiplies = timesToMultipleRomanNumeral * decimalOfRomanNumeralToMultiply;
     return appendMultiples(romanNumeralToMultiply,timesToMultipleRomanNumeral) + decimalToRomanNumeral(decimal - totalDecimalOfMultiplies);
   }
   else{
