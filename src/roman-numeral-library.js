@@ -69,13 +69,11 @@ export function decimalToRomanNumeral(decimal){
 
   if (goesDownTwoWhenSubtracted.includes(firstSubtractionRomanNumeral)){//some roman numerals require you go down two values in the equivalentsMapKeys when subtracting
     totalSubtractionDecimal = equivalentsMapKeys[index] - equivalentsMapKeys[index-2];
-    secondSubtractionRomanNumeral = equivalentsMap.get(equivalentsMapKeys[index-2]);
   }
   else{
-    secondSubtractionRomanNumeral = equivalentsMap.get(equivalentsMapKeys[index-1]);
     totalSubtractionDecimal = equivalentsMapKeys[index] - equivalentsMapKeys[index-1]; 
   }
-
+  //final step where we append either multiples of roman numerals or subtraction roman numeral pairs and then reiterate the function
   if(totalSubtractionDecimal > decimal){// if this is case then we need to append multiple roman numerals rather than use subtractive roman numerals
     romanNumeralToMultiply = findFirstRomanNumeralValueThatPrecedesOrEqualsTheValueOfDecimal(decimal);
     decimalOfRomanNumeralToMultiply = equivalentsMapKeys[index-1];
@@ -85,7 +83,7 @@ export function decimalToRomanNumeral(decimal){
   }
   else{
     //append lower value to higher value and then reiterate the function;
-    return (secondSubtractionRomanNumeral + firstSubtractionRomanNumeral) + decimalToRomanNumeral(decimal - totalSubtractionDecimal);
+    return (prependLowerRomanNumeralToHigherRomanNumeralInCaseOfSubtraction(decimal)) + decimalToRomanNumeral(decimal - totalSubtractionDecimal);
   }
 
 }
