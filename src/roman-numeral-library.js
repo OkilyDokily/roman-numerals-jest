@@ -26,6 +26,12 @@ export function findFirstRomanNumeralValueThatExceedsTheValueOfDecimal(decimal){
       let i = findIndexOfValueThatExceedsTheValueOfDecimal(decimal);
       return equivalentsMap.get(equivalentsMapKeys[i]);
 }
+
+export function findFirstRomanNumeralValueThatPrecedesOrEqualsTheValueOfDecimal(decimal){
+  let i = findIndexOfValueThatExceedsTheValueOfDecimal(decimal);
+  return equivalentsMap.get(equivalentsMapKeys[i - 1]);
+}
+
 //referred to as decimal rather than inputted number because
 //this is a recursive function.
 export function decimalToRomanNumeral(decimal){
@@ -48,7 +54,7 @@ export function decimalToRomanNumeral(decimal){
   let secondSubtractionRomanNumeral;
 
 
-  if (goesDownTwoWhenSubtracted.includes(firstSubtractionRomanNumeral)){
+  if (goesDownTwoWhenSubtracted.includes(firstSubtractionRomanNumeral)){//some roman numerals require you go down two values in the equivalentsMapKeys when subtracting
     totalSubtractionDecimal = equivalentsMapKeys[index] - equivalentsMapKeys[index-2];
     secondSubtractionRomanNumeral = equivalentsMap.get(equivalentsMapKeys[index-2]);
   }
@@ -57,8 +63,8 @@ export function decimalToRomanNumeral(decimal){
     totalSubtractionDecimal = equivalentsMapKeys[index] - equivalentsMapKeys[index-1]; 
   }
 
-  if(totalSubtractionDecimal > decimal){
-    romanNumeralToMultiply = equivalentsMap.get(equivalentsMapKeys[index-1]);
+  if(totalSubtractionDecimal > decimal){// if this is case then we need to append multiple roman numerals rather than use subtractive roman numerals
+    romanNumeralToMultiply = findFirstRomanNumeralValueThatPrecedesOrEqualsTheValueOfDecimal(decimal);
     decimalOfRomanNumeralToMultiply = equivalentsMapKeys[index-1];
     timesToMultipleRomanNumeral = findAppropriateMultiple(decimalOfRomanNumeralToMultiply,decimal);
     totalDecimalOfMultiplies = timesToMultipleRomanNumeral * decimalOfRomanNumeralToMultiply;
